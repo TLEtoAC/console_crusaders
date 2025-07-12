@@ -206,4 +206,5 @@ To make a user an admin:
 
 ---
 
-Happy swapping! 
+THANK YOU!!
+~Team Console Crusaders
