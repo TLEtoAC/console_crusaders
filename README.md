@@ -10,7 +10,6 @@ A full-stack clothing swap platform built with React, Node.js, Express, and Post
 - [Frontend Routes](#frontend-routes)
 - [Database Setup](#database-setup)
 - [Running the App](#running-the-app)
-- [Environment Variables](#environment-variables)
 - [Admin User Setup](#admin-user-setup)
 - [Development Tips](#development-tips)
 
@@ -70,6 +69,9 @@ rewear app/
 - `PUT    /api/admin/users/:id/points` — Adjust user points
 - `GET    /api/admin/stats` — Dashboard stats
 - `GET    /api/admin/categories` — Category stats
+
+**Public Stats**
+- `GET    /api/stats` — Public stats for landing page
 
 ---
 
@@ -159,7 +161,18 @@ npm install
 npm run dev
 ```
 - The server runs on [http://localhost:5000](http://localhost:5000)
-- Make sure your PostgreSQL server is running and matches the credentials in `.env` or `env.example`.
+- **Database and server credentials are hardcoded in `server/config/database.js`.**
+- If you need to change the database user, password, or other settings, edit the config at the top of that file:
+
+```js
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'rewear2',
+  password: 'password',
+  port: 5432,
+});
+```
 
 ### 2. Frontend (React app)
 
@@ -169,24 +182,6 @@ npm install
 npm start
 ```
 - The app runs on [http://localhost:3000](http://localhost:3000)
-
----
-
-## Environment Variables
-
-Copy `env.example` to `.env` in the `server/` folder and adjust as needed:
-
-```
-DB_USER=postgres
-DB_HOST=localhost
-DB_NAME=rewear2
-DB_PASSWORD=yourpassword
-DB_PORT=5432
-JWT_SECRET=your_jwt_secret
-PORT=5000
-NODE_ENV=development
-CLIENT_URL=http://localhost:3000
-```
 
 ---
 
@@ -206,7 +201,7 @@ To make a user an admin:
 - If you change database structure, restart the backend server.
 - If you can't see admin features, make sure your user is marked as admin and you are logged in again.
 - Uploaded images are stored in `server/uploads/`.
-- For CORS issues, ensure `CLIENT_URL` in `.env` matches your frontend URL.
+- For CORS issues, ensure your frontend and backend are running on the correct ports.
 - For any issues, check the browser console and backend logs.
 
 ---
